@@ -11,7 +11,7 @@ import { useThemeStore } from '@/stores/theme'
 const themeStore = useThemeStore()
 setTimeout(() => {
   themeStore.setThemeColor('#FDFDFD')
-}, 200);
+}, 10);
 
 </script>
 
