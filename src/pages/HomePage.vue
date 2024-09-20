@@ -268,6 +268,10 @@ const handleSummaryDetail = () => {
   white-space: nowrap;
 }
 
+.tab-select-container::-webkit-scrollbar {
+  display: none !important;
+}
+
 .tab {
   font-size: 12px;
   border-radius: 20px;
