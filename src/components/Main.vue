@@ -58,7 +58,7 @@ const mainStyle = computed(() => {
   position: absolute;
   width: 100%;
   height: calc(100% - 76px - 52px);
-  margin-top: 68px;
+  margin-top: 52px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
