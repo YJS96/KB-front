@@ -158,8 +158,8 @@ const saveAsImage = async (item: string) => {
                 <th colspan="2" rowspan="2">교부번호</th>
                 <th colspan="2" rowspan="2">2024년 09월 24일<br />제 00001 호</th>
                 <th rowspan="4">의료기관</th>
-                <th class="no-border-top">명칭</th>
-                <th class="no-border-top">김성헌내과의원</th>
+                <th>명칭</th>
+                <th>김성헌내과의원</th>
               </tr>
               <tr>
                 <th>전화번호</th>
@@ -309,7 +309,7 @@ const saveAsImage = async (item: string) => {
               <tr>
                 <td colspan="2">조제약사</td>
                 <td>성명</td>
-                <td colspan="4" style="border-right: 0.75px solid var(--blue)">
+                <td colspan="4" style="border-right: 0.8px solid var(--blue)">
                   &nbsp;임준수 &nbsp;&nbsp;&nbsp;(서명 또는 날인)
                 </td>
               </tr>
@@ -323,7 +323,7 @@ const saveAsImage = async (item: string) => {
                 <td
                   colspan="5"
                   class="no-border-bottom"
-                  style="border-right: 0.75px solid var(--blue)"
+                  style="border-right: 0.8px solid var(--blue)"
                 ></td>
               </tr>
             </tbody>
@@ -623,7 +623,6 @@ const saveAsImage = async (item: string) => {
   margin-top: 16px;
   width: 100%;
   border: 2px solid var(--blue);
-  z-index: 99;
   * {
     font-family: 'YESMyoungjo-Regular';
     font-size: 8px;
@@ -632,19 +631,16 @@ const saveAsImage = async (item: string) => {
 }
 
 table {
-  margin-left: -1px;
-  width: calc(100% + 2px);
-  margin-bottom: -1px;
+  width: 100%;
   border-top: 1px solid var(--blue);
   border-bottom: 1px solid var(--blue);
   /* border: 1px solid var(--blue); */
-  z-index: 1;
 }
 
 th,
 td {
-  border-right: 0.75px solid var(--blue);
-  border-bottom: 0.75px solid var(--blue);
+  border-right: 0.8px solid var(--blue);
+  border-bottom: 0.8px solid var(--blue);
 }
 
 th:last-child,
@@ -661,7 +657,6 @@ th,
 td {
   text-align: center;
   white-space: nowrap;
-  border: 1px solid var(--blue);
 }
 
 th[rowspan] {
