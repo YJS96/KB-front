@@ -39,7 +39,7 @@ const rotationStyle = computed(() => ({
     @touchmove="onTouchMove"
     @touchend="onTouchEnd"
   >
-    <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance / 2}px` }">
+    <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance / 1.6}px` }">
       <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
       {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
     </div>
