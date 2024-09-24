@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 // import NavBar from '@/components/NavBar.vue'
 
-const threshold = 60; // 새로고침을 트리거하는 당김 거리 (픽셀)
+const threshold = 200; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
 const startY = ref(0);
 
@@ -49,7 +49,9 @@ const onTouchEnd = () => {
 
 .pull-to-refresh__indicator {
   position: absolute;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   height: 0;
   overflow: hidden;
   transition: height 0.3s ease;
