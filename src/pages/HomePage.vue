@@ -27,6 +27,10 @@ const handleSummaryDetail = () => {
 const isAuthenticated = ref(false);
 
 const authenticate = async () => {
+  if (isAuthenticated) {
+    return
+  }
+
   if (!window.PublicKeyCredential) {
     // authResult.value = 'Web Authentication API가 지원되지 않습니다.';
     return;
