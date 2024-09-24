@@ -158,8 +158,8 @@ const saveAsImage = async (item: string) => {
                 <th colspan="2" rowspan="2">교부번호</th>
                 <th colspan="2" rowspan="2">2024년 09월 24일<br />제 00001 호</th>
                 <th rowspan="4">의료기관</th>
-                <th>명칭</th>
-                <th>김성헌내과의원</th>
+                <th class="no-border-top">명칭</th>
+                <th class="no-border-top">김성헌내과의원</th>
               </tr>
               <tr>
                 <th>전화번호</th>
@@ -639,8 +639,8 @@ table {
 
 th,
 td {
-  border-right: 0.5px solid var(--blue);
-  border-bottom: 0.5px solid var(--blue);
+  border-right: 1px solid var(--blue);
+  border-bottom: 1px solid var(--blue);
 }
 
 th:last-child,
