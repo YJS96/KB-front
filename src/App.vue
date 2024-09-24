@@ -1,16 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 // import NavBar from '@/components/NavBar.vue'
+
 const threshold = 120;
 const pullDistance = ref(0);
 const startY = ref(0);
 
 const emit = defineEmits(['refresh']);
 
-const onTouchStart = (e) => {
+const onTouchStart = (e: TouchEvent) => {
   startY.value = e.touches[0].clientY;
 };
 
-const onTouchMove = (e) => {
+const onTouchMove = (e: TouchEvent) => {
   const currentY = e.touches[0].clientY;
   pullDistance.value = Math.max(0, currentY - startY.value);
 };
