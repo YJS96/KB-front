@@ -66,4 +66,8 @@ const rotationStyle = computed(() => ({
   z-index: 999;
   top: 0 !important;
 }
+
+i {
+  margin-right: 4px;
+}
 </style>
