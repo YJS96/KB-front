@@ -623,6 +623,7 @@ const saveAsImage = async (item: string) => {
   margin-top: 16px;
   width: 100%;
   border: 2px solid var(--blue);
+  z-index: 99;
   * {
     font-family: 'YESMyoungjo-Regular';
     font-size: 8px;
@@ -631,10 +632,13 @@ const saveAsImage = async (item: string) => {
 }
 
 table {
-  width: 100%;
+  margin-left: -1px;
+  width: calc(100% + 2px);
+  margin-bottom: -1px;
   border-top: 1px solid var(--blue);
   border-bottom: 1px solid var(--blue);
   /* border: 1px solid var(--blue); */
+  z-index: 1;
 }
 
 th,
@@ -657,6 +661,7 @@ th,
 td {
   text-align: center;
   white-space: nowrap;
+  border: 1px solid var(--blue);
 }
 
 th[rowspan] {
