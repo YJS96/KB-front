@@ -45,14 +45,14 @@ const onTouchEnd = () => {
 .pull-to-refresh {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  z-index: 999;
 }
 
 .pull-to-refresh__indicator {
+  position: absolute;
   text-align: center;
   height: 0;
   overflow: hidden;
-  transition: height 0.3s;
+  transition: height 0.3s ease;
   z-index: 999;
 }
 </style>
