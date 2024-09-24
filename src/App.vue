@@ -64,5 +64,6 @@ const rotationStyle = computed(() => ({
   overflow: hidden;
   transition: height 0.3s ease;
   z-index: 999;
+  top: 0 !important;
 }
 </style>
