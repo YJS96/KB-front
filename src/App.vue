@@ -62,7 +62,7 @@ const rotationStyle = computed(() => ({
   align-items: center;
   height: 0;
   overflow: hidden;
-  transition: height 0.3s ease;
+  transition: height 0.1s ease;
   z-index: 999;
   top: 0 !important;
 }
