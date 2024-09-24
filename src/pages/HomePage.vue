@@ -27,8 +27,8 @@ const handleSummaryDetail = () => {
 const isAuthenticated = ref(false);
 
 const authenticate = async () => {
-  if (isAuthenticated) {
-    return
+  if (isAuthenticated.value) {
+    return;
   }
 
   if (!window.PublicKeyCredential) {
