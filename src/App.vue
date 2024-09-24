@@ -55,7 +55,7 @@ const rotationStyle = computed(() => ({
 }
 
 .pull-to-refresh__indicator {
-  position: absolute;
+  position: fixed;
   width: 100%;
   display: flex;
   justify-content: center;
