@@ -1,13 +1,58 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 // import NavBar from '@/components/NavBar.vue'
+
+const threshold = 60; // 새로고침을 트리거하는 당김 거리 (픽셀)
+const pullDistance = ref(0);
+const startY = ref(0);
+
+const emit = defineEmits(['refresh']);
+
+const onTouchStart = (e: TouchEvent) => {
+  startY.value = e.touches[0].clientY;
+};
+
+const onTouchMove = (e: TouchEvent) => {
+  const currentY = e.touches[0].clientY;
+  pullDistance.value = Math.max(0, currentY - startY.value);
+};
+
+const onTouchEnd = () => {
+  if (pullDistance.value > threshold) {
+    emit('refresh');
+  }
+  pullDistance.value = 0;
+};
 </script>
 
 <template>
-  <div>
+  <div
+    class="pull-to-refresh"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
+  >
+    <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance}px` }">
+      {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
+    </div>
     <!-- <NavBar /> -->
     <RouterView />
   </div>
 </template>
 
 <style scoped>
+.pull-to-refresh {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 999;
+}
+
+.pull-to-refresh__indicator {
+  text-align: center;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s;
+  z-index: 999;
+}
 </style>
