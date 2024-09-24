@@ -33,7 +33,10 @@ const onTouchEnd = () => {
     @touchmove="onTouchMove"
     @touchend="onTouchEnd"
   >
-    <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance}px` }">
+    <div
+      class="pull-to-refresh__indicator"
+      :style="{ height: `${pullDistance}px`, marginBottom: `${pullDistance}px` }"
+    >
       {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
     </div>
     <!-- <NavBar /> -->
