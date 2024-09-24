@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
+
+// import NavBar from '@/components/NavBar.vue'
 
 const threshold = 180; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
@@ -39,8 +41,9 @@ const rotationStyle = computed(() => ({
   >
     <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance}px` }">
       <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
-      {{ isOverThreshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
+      {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
     </div>
+    <!-- <NavBar /> -->
     <RouterView />
   </div>
 </template>
@@ -55,15 +58,11 @@ const rotationStyle = computed(() => ({
   position: absolute;
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 0;
   overflow: hidden;
   transition: height 0.3s ease;
   z-index: 999;
-}
-
-.pull-to-refresh__indicator i {
-  margin-right: 8px;
 }
 </style>
