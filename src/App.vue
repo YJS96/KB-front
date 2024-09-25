@@ -71,7 +71,7 @@ const contentStyle = computed(() => ({
     <div
       class="pull-to-refresh__indicator"
       :style="{
-        height: indicatorVisible ? `${Math.max(pullDistance / 1.6, 40)}px` : '0px'
+        height: indicatorVisible ? `${pullDistance / 1.6}px` : '0px'
       }"
     >
       <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
@@ -101,7 +101,6 @@ const contentStyle = computed(() => ({
   transition: height 0.3s ease;
   z-index: 999;
   top: 0;
-  background-color: #f0f0f0;
 }
 
 .pull-to-refresh__content {
