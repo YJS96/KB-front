@@ -15,9 +15,12 @@ const handleSummaryDetail = () => {
 </script>
 
 <template>
-
   <NavBar />
   <Main :headbar="false" :navbar="true" :padded="true" :bg-gray="true">
+    <ShadowBox :padding-x="20" :padding-y="20" @click="$router.push('/login')"
+      >로그인 페이지</ShadowBox
+    >
+    <ShadowBox :padding-x="20" :padding-y="20" @click="$router.push('/pharmacist')">약사</ShadowBox>
     <div class="notice">
       <img src="/images/tada.svg" />
       <div>아직 조제받지 않은 처방전이 있어요</div>
@@ -105,7 +108,7 @@ const handleSummaryDetail = () => {
     </ShadowBox>
 
     <ShadowBox :padding-x="20" :padding-y="20">
-      <div class="title-with-arrow">
+      <div class="title-with-arrow" @click="$router.push('/prescription')">
         <div class="shadow-box-title">최근 처방전 내역</div>
         <i class="fa-solid fa-chevron-right"></i>
       </div>
