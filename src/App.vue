@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-// import NavBar from '@/components/NavBar.vue'
-
-const threshold = 180; // 새로고침을 트리거하는 당김 거리 (픽셀)
+const threshold = 180;
 const pullDistance = ref(0);
 const startY = ref(0);
-const refreshState = ref('idle'); // 'idle', 'pulling', 'refreshing'
+const refreshState = ref('idle');
 
 const emit = defineEmits(['refresh']);
 
@@ -29,10 +27,9 @@ const onTouchEnd = () => {
     refreshState.value = 'refreshing';
     emit('refresh');
 
-    // 새로고침 상태를 시뮬레이션합니다
     setTimeout(() => {
       refreshState.value = 'idle';
-    }, 1000); // '새로고침 중' 상태를 2초 동안 유지
+    }, 1000);
   } else if (refreshState.value === 'pulling') {
     refreshState.value = 'idle';
   }
@@ -57,6 +54,11 @@ const indicatorText = computed(() => {
 });
 
 const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDistance.value > 0);
+
+const contentStyle = computed(() => ({
+  transform: `translateY(${refreshState.value === 'refreshing' ? '40px' : '0'})`,
+  transition: 'transform 0.3s ease'
+}));
 </script>
 
 <template>
@@ -75,8 +77,10 @@ const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDis
       <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
       {{ indicatorText }}
     </div>
-    <!-- <NavBar /> -->
-    <RouterView />
+    <div class="pull-to-refresh__content" :style="contentStyle">
+      <!-- <NavBar /> -->
+      <RouterView />
+    </div>
   </div>
 </template>
 
@@ -84,10 +88,11 @@ const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDis
 .pull-to-refresh {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  height: 100vh;
 }
 
 .pull-to-refresh__indicator {
-  position: fixed;
+  position: absolute;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -95,7 +100,14 @@ const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDis
   overflow: hidden;
   transition: height 0.3s ease;
   z-index: 999;
-  top: 0 !important;
+  top: 0;
+  background-color: #f0f0f0;
+}
+
+.pull-to-refresh__content {
+  min-height: 100%;
+  padding-top: 1px;
+  margin-top: -1px;
 }
 
 i {
