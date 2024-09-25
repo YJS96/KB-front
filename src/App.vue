@@ -4,7 +4,6 @@ import { computed, ref } from 'vue';
 const threshold = 176; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
 const startY = ref(0);
-
 const isRefreshing = ref(false);
 const showRefreshingMessage = ref(false);
 
