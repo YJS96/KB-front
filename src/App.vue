@@ -6,20 +6,25 @@ const pullDistance = ref(0);
 const startY = ref(0);
 const randomNumber = ref(Math.floor(Math.random() * 1000)); // 초기 랜덤 숫자 생성
 const isRefreshing = ref(false);
+const showRefreshingMessage = ref(false);
 
 const emit = defineEmits(['refresh']);
 
 const onTouchStart = (e: TouchEvent) => {
-  startY.value = e.touches[0].clientY;
+  if (!isRefreshing.value) {
+    startY.value = e.touches[0].clientY;
+  }
 };
 
 const onTouchMove = (e: TouchEvent) => {
-  const currentY = e.touches[0].clientY;
-  pullDistance.value = Math.max(0, currentY - startY.value);
+  if (!isRefreshing.value) {
+    const currentY = e.touches[0].clientY;
+    pullDistance.value = Math.max(0, currentY - startY.value);
+  }
 };
 
 const onTouchEnd = () => {
-  if (pullDistance.value > threshold) {
+  if (pullDistance.value > threshold && !isRefreshing.value) {
     startRefresh();
   } else {
     pullDistance.value = 0;
@@ -28,10 +33,16 @@ const onTouchEnd = () => {
 
 const startRefresh = () => {
   isRefreshing.value = true;
+  pullDistance.value = threshold; // 인디케이터를 완전히 펼친 상태로 유지
   setTimeout(() => {
-    refreshContent();
-    pullDistance.value = 0;
-  }, 1000);
+    showRefreshingMessage.value = true;
+    setTimeout(() => {
+      refreshContent();
+      isRefreshing.value = false;
+      showRefreshingMessage.value = false;
+      pullDistance.value = 0;
+    }, 1000);
+  }, 0);
 };
 
 const refreshContent = () => {
@@ -55,13 +66,13 @@ const rotationStyle = computed(() => ({
     @touchend="onTouchEnd"
   >
     <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance / 1.6}px` }">
-      <div v-if="!isRefreshing">
+      <div v-if="!showRefreshingMessage">
         <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
-        {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
+        {{ isOverThreshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
       </div>
-      <div style="position: absolute; top: 16px" v-else>새로고침 중</div>
+      <div v-else>새로고침 중</div>
     </div>
-    <div class="content" :style="{ marginTop: isRefreshing ? '40px' : '0' }">
+    <div class="content" :style="{ marginTop: showRefreshingMessage ? '40px' : '0' }">
       <!-- <NavBar /> -->
       <RouterView />
     </div>
@@ -84,7 +95,7 @@ const rotationStyle = computed(() => ({
   align-items: center;
   height: 0;
   overflow: hidden;
-  transition: height 0.1s ease;
+  transition: height 0.3s ease;
   z-index: 999;
   top: 0 !important;
 }
