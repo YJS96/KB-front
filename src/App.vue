@@ -69,8 +69,7 @@ const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDis
     <div
       class="pull-to-refresh__indicator"
       :style="{
-        height: indicatorVisible ? `${Math.max(pullDistance / 1.6, 40)}px` : '0px',
-        opacity: indicatorVisible ? 1 : 0
+        height: indicatorVisible ? `${Math.max(pullDistance / 1.6, 40)}px` : '0px'
       }"
     >
       <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
@@ -94,9 +93,7 @@ const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDis
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  transition:
-    height 0.3s ease,
-    opacity 0.3s ease;
+  transition: height 0.3s ease;
   z-index: 999;
   top: 0 !important;
 }
