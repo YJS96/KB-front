@@ -28,7 +28,9 @@ const onTouchEnd = () => {
     isRefreshing.value = true;
     emit('refresh');
     // 새로고침이 완료되면 isRefreshing을 false로 설정해야 합니다.
-    // 예: setTimeout(() => { isRefreshing.value = false; }, 2000);
+    setTimeout(() => {
+      isRefreshing.value = false;
+    }, 1000);
   }
   pullDistance.value = 0;
 };
