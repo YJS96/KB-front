@@ -57,7 +57,7 @@ const indicatorText = computed(() => {
 const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDistance.value > 0);
 
 const indicatorHeight = computed(() => {
-  return Math.min(Math.max(pullDistance.value / 2, 0), maxIndicatorHeight);
+  return Math.min(Math.max(pullDistance.value / 4, 0), maxIndicatorHeight);
 });
 
 const contentStyle = computed(() => ({
