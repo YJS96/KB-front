@@ -60,7 +60,7 @@ const rotationStyle = computed(() => ({
         <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
         {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
       </div>
-      <div style="position: absolute; top: 24px" v-else>새로고침 중</div>
+      <div style="position: absolute; top: 16px" v-else>새로고침 중</div>
     </div>
     <div class="content" :style="{ marginTop: isRefreshing ? '40px' : '0' }">
       <!-- <NavBar /> -->
