@@ -6,7 +6,7 @@ import { computed, ref } from 'vue';
 const threshold = 180; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
 const startY = ref(0);
-const refreshState = ref('idle'); // 'idle', 'pulling', 'refreshing', 'completed'
+const refreshState = ref('idle'); // 'idle', 'pulling', 'refreshing'
 
 const emit = defineEmits(['refresh']);
 
@@ -31,13 +31,8 @@ const onTouchEnd = () => {
 
     // 새로고침 상태를 시뮬레이션합니다
     setTimeout(() => {
-      refreshState.value = 'completed';
-
-      // 'completed' 상태를 잠시 유지한 후 'idle' 상태로 돌아갑니다
-      setTimeout(() => {
-        refreshState.value = 'idle';
-      }, 1000); // 'completed' 상태를 1초 동안 유지
-    }, 2000); // '새로고침 중' 상태를 2초 동안 유지
+      refreshState.value = 'idle';
+    }, 1000); // '새로고침 중' 상태를 2초 동안 유지
   } else if (refreshState.value === 'pulling') {
     refreshState.value = 'idle';
   }
@@ -54,8 +49,6 @@ const indicatorText = computed(() => {
   switch (refreshState.value) {
     case 'refreshing':
       return '새로고침 중';
-    case 'completed':
-      return '새로고침 완료';
     case 'pulling':
       return pullDistance.value > threshold ? '놓아서 새로고침' : '당겨서 새로고침';
     default:
@@ -106,7 +99,6 @@ const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDis
     opacity 0.3s ease;
   z-index: 999;
   top: 0 !important;
-  background-color: #f0f0f0;
 }
 
 i {
