@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-// import NavBar from '@/components/NavBar.vue'
-
 const threshold = 180; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
 const startY = ref(0);
+const randomNumber = ref(Math.floor(Math.random() * 1000)); // 초기 랜덤 숫자 생성
 
 const emit = defineEmits(['refresh']);
 
@@ -20,9 +19,15 @@ const onTouchMove = (e: TouchEvent) => {
 
 const onTouchEnd = () => {
   if (pullDistance.value > threshold) {
-    emit('refresh');
+    refreshContent();
   }
   pullDistance.value = 0;
+};
+
+const refreshContent = () => {
+  // 새로운 랜덤 숫자 생성
+  randomNumber.value = Math.floor(Math.random() * 1000);
+  emit('refresh');
 };
 
 const isOverThreshold = computed(() => pullDistance.value > threshold);
@@ -45,6 +50,9 @@ const rotationStyle = computed(() => ({
     </div>
     <!-- <NavBar /> -->
     <RouterView />
+    <div class="random-number">
+      랜덤 숫자: {{ randomNumber }}
+    </div>
   </div>
 </template>
 
@@ -69,5 +77,15 @@ const rotationStyle = computed(() => ({
 
 i {
   margin-right: 4px;
+}
+
+.random-number {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
 }
 </style>
