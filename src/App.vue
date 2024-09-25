@@ -70,9 +70,12 @@ const rotationStyle = computed(() => ({
         <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
         {{ isOverThreshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
       </div>
-      <div v-else>새로고침 중</div>
+      <div v-else class="refreshing-message">
+        <div class="spinner"></div>
+        <span>새로고침 중</span>
+      </div>
     </div>
-    <div class="content" :style="{ marginTop: showRefreshingMessage ? '40px' : '0' }">
+    <div class="content" :style="{ marginTop: showRefreshingMessage ? '32px' : '0' }">
       <!-- <NavBar /> -->
       <RouterView />
     </div>
@@ -117,5 +120,32 @@ i {
   padding: 10px;
   border-radius: 5px;
   z-index: 999;
+}
+
+.refreshing-message {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 16px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--white);
+  border-top: 2px solid var(--dark-gray);
+  border-radius: 100px;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
