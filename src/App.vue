@@ -30,7 +30,6 @@ const startRefresh = () => {
   isRefreshing.value = true;
   setTimeout(() => {
     refreshContent();
-    isRefreshing.value = false;
     pullDistance.value = 0;
   }, 1000);
 };
