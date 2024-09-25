@@ -56,13 +56,11 @@ const rotationStyle = computed(() => ({
     @touchend="onTouchEnd"
   >
     <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance / 1.6}px` }">
-      <template v-if="!isRefreshing">
+      <div v-if="!isRefreshing">
         <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
         {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
-      </template>
-      <template v-else>
-        새로고침 중
-      </template>
+      </div>
+      <div style="position: absolute; top: 40px" v-else>새로고침 중</div>
     </div>
     <div class="content" :style="{ marginTop: isRefreshing ? '40px' : '0' }">
       <!-- <NavBar /> -->
