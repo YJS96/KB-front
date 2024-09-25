@@ -309,7 +309,7 @@ const saveAsImage = async (item: string) => {
               <tr>
                 <td colspan="2">조제약사</td>
                 <td>성명</td>
-                <td colspan="4" style="border-right: 0.8px solid var(--blue)">
+                <td colspan="4" style="border-right: 0.5px solid var(--blue)">
                   &nbsp;임준수 &nbsp;&nbsp;&nbsp;(서명 또는 날인)
                 </td>
               </tr>
@@ -323,7 +323,7 @@ const saveAsImage = async (item: string) => {
                 <td
                   colspan="5"
                   class="no-border-bottom"
-                  style="border-right: 0.8px solid var(--blue)"
+                  style="border-right: 0.5px solid var(--blue)"
                 ></td>
               </tr>
             </tbody>
@@ -639,8 +639,8 @@ table {
 
 th,
 td {
-  border-right: 0.8px solid var(--blue);
-  border-bottom: 0.8px solid var(--blue);
+  border-right: 0.5px solid var(--blue);
+  border-bottom: 0.5px solid var(--blue);
 }
 
 th:last-child,
