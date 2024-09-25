@@ -5,6 +5,7 @@ const threshold = 180; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
 const startY = ref(0);
 const randomNumber = ref(Math.floor(Math.random() * 1000)); // 초기 랜덤 숫자 생성
+const isRefreshing = ref(false);
 
 const emit = defineEmits(['refresh']);
 
@@ -19,9 +20,19 @@ const onTouchMove = (e: TouchEvent) => {
 
 const onTouchEnd = () => {
   if (pullDistance.value > threshold) {
-    refreshContent();
+    startRefresh();
+  } else {
+    pullDistance.value = 0;
   }
-  pullDistance.value = 0;
+};
+
+const startRefresh = () => {
+  isRefreshing.value = true;
+  setTimeout(() => {
+    refreshContent();
+    isRefreshing.value = false;
+    pullDistance.value = 0;
+  }, 1000);
 };
 
 const refreshContent = () => {
@@ -45,11 +56,18 @@ const rotationStyle = computed(() => ({
     @touchend="onTouchEnd"
   >
     <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance / 1.6}px` }">
-      <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
-      {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
+      <template v-if="!isRefreshing">
+        <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
+        {{ pullDistance > threshold ? '놓아서 새로고침' : '당겨서 새로고침' }}
+      </template>
+      <template v-else>
+        새로고침 중
+      </template>
     </div>
-    <!-- <NavBar /> -->
-    <RouterView />
+    <div class="content" :style="{ marginTop: isRefreshing ? '40px' : '0' }">
+      <!-- <NavBar /> -->
+      <RouterView />
+    </div>
     <div class="random-number">랜덤 숫자: {{ randomNumber }}</div>
   </div>
 </template>
@@ -58,6 +76,7 @@ const rotationStyle = computed(() => ({
 .pull-to-refresh {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  height: 100vh;
 }
 
 .pull-to-refresh__indicator {
@@ -71,6 +90,10 @@ const rotationStyle = computed(() => ({
   transition: height 0.1s ease;
   z-index: 999;
   top: 0 !important;
+}
+
+.content {
+  transition: margin-top 0.3s ease;
 }
 
 i {
