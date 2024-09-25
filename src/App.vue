@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 
 const threshold = 180;
+const maxIndicatorHeight = 60; // 최대 인디케이터 높이 설정
 const pullDistance = ref(0);
 const startY = ref(0);
 const refreshState = ref('idle');
@@ -55,8 +56,12 @@ const indicatorText = computed(() => {
 
 const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDistance.value > 0);
 
+const indicatorHeight = computed(() => {
+  return Math.min(Math.max(pullDistance.value / 2, 0), maxIndicatorHeight);
+});
+
 const contentStyle = computed(() => ({
-  transform: `translateY(${refreshState.value === 'refreshing' ? '40px' : '0'})`,
+  transform: `translateY(${refreshState.value === 'refreshing' ? `${maxIndicatorHeight}px` : '0'})`,
   transition: 'transform 0.3s ease'
 }));
 </script>
@@ -71,11 +76,14 @@ const contentStyle = computed(() => ({
     <div
       class="pull-to-refresh__indicator"
       :style="{
-        height: indicatorVisible ? `${pullDistance / 1.6}px` : '0px'
+        height: `${indicatorHeight}px`,
+        opacity: indicatorVisible ? 1 : 0
       }"
     >
-      <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
-      {{ indicatorText }}
+      <div class="pull-to-refresh__indicator-content">
+        <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
+        {{ indicatorText }}
+      </div>
     </div>
     <div class="pull-to-refresh__content" :style="contentStyle">
       <!-- <NavBar /> -->
@@ -96,11 +104,17 @@ const contentStyle = computed(() => ({
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   overflow: hidden;
-  transition: height 0.3s ease;
+  transition:
+    height 0.3s ease,
+    opacity 0.3s ease;
   z-index: 999;
   top: 0;
+}
+
+.pull-to-refresh__indicator-content {
+  padding-bottom: 10px;
 }
 
 .pull-to-refresh__content {
