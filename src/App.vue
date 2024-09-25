@@ -50,9 +50,7 @@ const rotationStyle = computed(() => ({
     </div>
     <!-- <NavBar /> -->
     <RouterView />
-    <div class="random-number">
-      랜덤 숫자: {{ randomNumber }}
-    </div>
+    <div class="random-number">랜덤 숫자: {{ randomNumber }}</div>
   </div>
 </template>
 
@@ -87,5 +85,6 @@ i {
   color: white;
   padding: 10px;
   border-radius: 5px;
+  z-index: 999;
 }
 </style>
