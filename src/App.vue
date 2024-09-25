@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-const threshold = 180; // 새로고침을 트리거하는 당김 거리 (픽셀)
+const threshold = 168; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
 const startY = ref(0);
 const randomNumber = ref(Math.floor(Math.random() * 1000)); // 초기 랜덤 숫자 생성
