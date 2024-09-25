@@ -6,31 +6,40 @@ import { computed, ref } from 'vue';
 const threshold = 180; // 새로고침을 트리거하는 당김 거리 (픽셀)
 const pullDistance = ref(0);
 const startY = ref(0);
-const isRefreshing = ref(false);
+const refreshState = ref('idle'); // 'idle', 'pulling', 'refreshing', 'completed'
 
 const emit = defineEmits(['refresh']);
 
 const onTouchStart = (e: TouchEvent) => {
-  if (!isRefreshing.value) {
+  if (refreshState.value === 'idle') {
     startY.value = e.touches[0].clientY;
+    refreshState.value = 'pulling';
   }
 };
 
 const onTouchMove = (e: TouchEvent) => {
-  if (!isRefreshing.value) {
+  if (refreshState.value === 'pulling') {
     const currentY = e.touches[0].clientY;
     pullDistance.value = Math.max(0, currentY - startY.value);
   }
 };
 
 const onTouchEnd = () => {
-  if (pullDistance.value > threshold && !isRefreshing.value) {
-    isRefreshing.value = true;
+  if (pullDistance.value > threshold && refreshState.value === 'pulling') {
+    refreshState.value = 'refreshing';
     emit('refresh');
-    // 새로고침이 완료되면 isRefreshing을 false로 설정해야 합니다.
+
+    // 새로고침 상태를 시뮬레이션합니다
     setTimeout(() => {
-      isRefreshing.value = false;
-    }, 1000);
+      refreshState.value = 'completed';
+
+      // 'completed' 상태를 잠시 유지한 후 'idle' 상태로 돌아갑니다
+      setTimeout(() => {
+        refreshState.value = 'idle';
+      }, 1000); // 'completed' 상태를 1초 동안 유지
+    }, 2000); // '새로고침 중' 상태를 2초 동안 유지
+  } else if (refreshState.value === 'pulling') {
+    refreshState.value = 'idle';
   }
   pullDistance.value = 0;
 };
@@ -42,9 +51,19 @@ const rotationStyle = computed(() => ({
 }));
 
 const indicatorText = computed(() => {
-  if (isRefreshing.value) return '새로고침 중';
-  return pullDistance.value > threshold ? '놓아서 새로고침' : '당겨서 새로고침';
+  switch (refreshState.value) {
+    case 'refreshing':
+      return '새로고침 중';
+    case 'completed':
+      return '새로고침 완료';
+    case 'pulling':
+      return pullDistance.value > threshold ? '놓아서 새로고침' : '당겨서 새로고침';
+    default:
+      return '';
+  }
 });
+
+const indicatorVisible = computed(() => refreshState.value !== 'idle' || pullDistance.value > 0);
 </script>
 
 <template>
@@ -54,7 +73,13 @@ const indicatorText = computed(() => {
     @touchmove="onTouchMove"
     @touchend="onTouchEnd"
   >
-    <div class="pull-to-refresh__indicator" :style="{ height: `${pullDistance / 1.6}px` }">
+    <div
+      class="pull-to-refresh__indicator"
+      :style="{
+        height: indicatorVisible ? `${Math.max(pullDistance / 1.6, 40)}px` : '0px',
+        opacity: indicatorVisible ? 1 : 0
+      }"
+    >
       <i class="fa-solid fa-arrow-up" :style="rotationStyle"></i>
       {{ indicatorText }}
     </div>
@@ -75,11 +100,13 @@ const indicatorText = computed(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 0;
   overflow: hidden;
-  transition: height 0.05s ease;
+  transition:
+    height 0.3s ease,
+    opacity 0.3s ease;
   z-index: 999;
   top: 0 !important;
+  background-color: #f0f0f0;
 }
 
 i {
