@@ -3,7 +3,7 @@ import Home from '@/pages/HomePage.vue';
 import Medicine from '@/pages/MedicinePage.vue';
 import Prescription from '@/pages/PrescriptionPage.vue';
 import Mypage from '@/pages/ProfilePage.vue';
-import Login from '@/pages/login/LoginPageKakao.vue';
+// import Login from '@/pages/login/LoginPageKakao.vue';
 import LoginPageInfoMember from '@/pages/login/LoginPageInfoMember.vue';
 import MedicineDetail from '@/pages/MedicineDetail.vue';
 import PrescriptionDetail from '@/pages/PrescriptionDetail.vue';
@@ -41,11 +41,11 @@ const router = createRouter({
       name: 'mypage',
       component: Mypage
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: Login
+    // },
     {
       path: '/login/member',
       name: 'loginPageInfoMember',
