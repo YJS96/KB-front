@@ -3,19 +3,20 @@ import Home from '@/pages/HomePage.vue';
 import Medicine from '@/pages/MedicinePage.vue';
 import Prescription from '@/pages/PrescriptionPage.vue';
 import Mypage from '@/pages/ProfilePage.vue';
-import Login from '@/pages/Login/LoginPageKakao.vue';
-import LoginPageInfoMember from '@/pages/Login/LoginPageInfoMember.vue';
+import Login from '@/pages/login/LoginPageKakao.vue';
+import LoginPageInfoMember from '@/pages/login/LoginPageInfoMember.vue';
 import MedicineDetail from '@/pages/MedicineDetail.vue';
 import PrescriptionDetail from '@/pages/PrescriptionDetail.vue';
-import LoginPageInfoUser from '@/pages/Login/LoginPageInfoUser.vue';
-import LoginPageInfoUser2 from '@/pages/Login/LoginPageInfoUser2.vue';
-import LoginPageSuccess from '@/pages/Login/LoginPageSuccess.vue';
-import LoginPageDoctor from '@/pages/Login/LoginPageDoctor.vue';
-import LoginPageDoctor2 from '@/pages/Login/LoginPageDoctor2.vue';
-import LoginPagePharmacist from '@/pages/Login/LoginPagePharmacist.vue';
-import PharmacistPage from '@/pages/Pharmacist/PharmacistPage.vue';
-import PharmacistPageScanPayment from '@/pages/Pharmacist/PharmacistPageScanPayment.vue';
+import LoginPageInfoUser from '@/pages/login/LoginPageInfoUser.vue';
+import LoginPageInfoUser2 from '@/pages/login/LoginPageInfoUser2.vue';
+import LoginPageSuccess from '@/pages/login/LoginPageSuccess.vue';
+import LoginPageDoctor from '@/pages/login/LoginPageDoctor.vue';
+import LoginPageDoctor2 from '@/pages/login/LoginPageDoctor2.vue';
+import LoginPagePharmacist from '@/pages/login/LoginPagePharmacist.vue';
+import PharmacistPage from '@/pages/pharmacist/PharmacistPage.vue';
+import PharmacistPageScanPayment from '@/pages/pharmacist/PharmacistPageScanPayment.vue';
 import DoctorPage from '@/pages/doctor/DoctorPage.vue';
+import DoctorFinalCheck from '@/pages/doctor/DoctorFinalCheck.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,8 +93,13 @@ const router = createRouter({
     },
     {
       path: '/doctor',
-      name: '/doctor',
+      name: '/doctorPage',
       component: DoctorPage
+    },
+    {
+      path: '/doctor/check',
+      name: '/doctorFinalCheck',
+      component: DoctorFinalCheck
     },
     {
       path: '/medicine/:id',
